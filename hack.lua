@@ -588,7 +588,7 @@ local tAutoFish = mainGui:Toggle("Auto Fish", {flag = "fAutoFish"})
 _G.fishAuto = false
 _G.fishWaitTime = math.random(minDelay, maxDelay)
 dprint("Global Auto Fish Boolean created")
-loadstring(game:HttpGet("https://pastebin.com/raw/AtqDXgmq", true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PixelOyuncu/hacks/main/fd.txt", true))()
 
 plr.Character.ChildAdded:Connect(function()
 	_G.fishAuto = mainGui.flags.fAutoFish
