@@ -1,0 +1,44 @@
+function dprint(str)
+	if _G.fishdebug then
+		game:GetService('TestService'):Message("[Fish Sim GUI] "..str)
+	end
+end
+
+local scriptLoc
+game:GetService("Players").LocalPlayer.Character.ChildAdded:Connect(function()
+	if _G.fishAuto then
+		for j, p in pairs(workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
+			dprint("Checking Child: " .. p.Name)
+			if string.find(p.Name, "Rod") then
+				dprint("Found Fishing Rod: " .. p.Name)
+				scriptLoc = p.FishingRodScript
+				dprint("Loaded Script Before Function: " .. scriptLoc.Name)
+				dprint("Sending Script to Hook Bubbles.")
+				hookBubbles(scriptLoc)
+				break
+			end
+		end
+	end
+end)
+
+function hookBubbles(fishScript)
+	local bUpdateGuide
+
+	for t, w in pairs(getgc()) do
+		if type(w) == "function" and getfenv(w).script == fishScript then 
+			if debug.getinfo(w).name == "UpdateGuide" then
+				bUpdateGuide = hookfunction(w, function(str) 
+					if str == "Bubbles" and _G.fishAuto then 
+						game.ReplicatedStorage.CloudClientResources.Communication.Events.FishedDone:FireServer()
+						bUpdateGuide("Bubbles")
+					else
+						bUpdateGuide(str)
+					end
+				end)
+				dprint("Found Bubble Hook")
+				break
+			end
+			dprint(debug.getinfo(w).name)
+		end
+	end
+end
