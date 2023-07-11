@@ -49,7 +49,7 @@ function dprint(str)
 end
 
 --Load GUI
-local library = loadstring(game:HttpGet("https://pastebin.com/raw/djhHQFXz", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/PixelOyuncu/hacks/main/sd.txt", true))()
 dprint("GUI Library Loaded")
 local fishGui = library:CreateWindow('Fish Sim ' .. currVersion)
 fishGui:Section('By Nymphoria @ V3rm')
